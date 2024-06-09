@@ -1,6 +1,7 @@
 #!/bin/bash
-input_string="$1"
-if [ "$input_string" == "ali_1256" ]; then
+read -r -p "Please enter the license: " input_string
+
+if [[ "$input_string" == "ali_1256" ]]; then
 	regex='^[0-9]+$'
 	function RemoveMultiLineUser() {
 		local SECRET_T
@@ -756,5 +757,5 @@ if [ "$input_string" == "ali_1256" ]; then
 		COUNTER=$COUNTER+1
 	done
 else
-    echo "License in not valid!"
+	echo "Invalid license!!!'"
 fi
