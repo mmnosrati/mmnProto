@@ -227,7 +227,7 @@ if [ -d "/opt/mtprotoproxy" ]; then
 		;;
 	#New secret
 	4)
-		#API Usage: bash MTProtoProxyInstall.sh 4 <USERNAME> <SECRET> -> Do not define secret to generate a random secret
+		
 		SECRETS=$(python3 -c 'import config;print(getattr(config, "USERS","{}"))')
 		SECRET_COUNT=$(python3 -c 'import config;print(len(getattr(config, "USERS","")))')
 		SECRETS=$(echo "$SECRETS" | tr "'" '"')
@@ -304,7 +304,7 @@ if [ -d "/opt/mtprotoproxy" ]; then
 		;;
 	#Revoke secret
 	5)
-		#API usage: bash MTProtoProxyInstall.sh 5 <USERNAME>
+		
 		if [ "$#" -ge 2 ]; then #Get username
 			GetSecretFromUsername "$2" #However the SECRET variable is not used; This is just used to verify that the user exist
 		else
@@ -329,7 +329,7 @@ if [ -d "/opt/mtprotoproxy" ]; then
 		;;
 	#Connection limits
 	6)
-		#API Usage: bash MTProtoProxyInstall.sh 6 <USERNAME> <LIMIT> -> Pass zero for unlimited
+		
 		if [ "$#" -ge 3 ]; then
 			GetSecretFromUsername "$2"
 		else
@@ -381,7 +381,7 @@ if [ -d "/opt/mtprotoproxy" ]; then
 		;;
 	#Expiry date
 	7)
-		#API Usage: bash MTProtoProxyInstall.sh 7 <USERNAME> <DATE> -> Pass nothing as <DATE> to remove; Date format is dd/mm/yyyy
+		
 		if [ "$#" -ge 2 ]; then
 			GetSecretFromUsername "$2"
 			DATE="$3"
@@ -417,7 +417,7 @@ if [ -d "/opt/mtprotoproxy" ]; then
 		;;
 	#Quota limit stuff
 	8)
-		#API Usage: bash MTProtoProxyInstall.sh 8 <USERNAME> <LIMIT> -> Pass nothing as <LIMIT> to remove; The number is in bytes
+		
 		if [ "$#" -ge 2 ]; then
 			GetSecretFromUsername "$2"
 			LIMIT="$3"
@@ -510,9 +510,7 @@ if [ -d "/opt/mtprotoproxy" ]; then
 		;;
 	# About
 	11)
-		echo "MTProtoInstaller script by Hirbod Behnam"
-		echo "Source at https://github.com/alexbers/mtprotoproxy"
-		echo "Github repo of script: https://github.com/HirbodBehnam/MTProtoProxyInstaller"
+		echo "Coded by mmnosrati"
 		;;
 	esac
 	exit
@@ -524,12 +522,7 @@ SECRET_END_ARY=()
 USERNAME_END_ARY=()
 TAG=""
 COUNTER=1
-echo "Welcome to MTProto-Proxy auto installer!"
-echo "Created by Hirbod Behnam"
-echo "I will install mtprotoproxy python script by alexbers"
-echo "Source at https://github.com/alexbers/mtprotoproxy"
-echo "Github repo of script: https://github.com/HirbodBehnam/MTProtoProxyInstaller"
-echo "Now I will gather some info from you."
+echo "mmnProto MTProto-Proxy auto installer!"
 echo ""
 echo ""
 read -r -p "Select a port to proxy listen on it (-1 to randomize): " -e -i "443" PORT
@@ -595,7 +588,6 @@ while true; do
 			echo "$(tput setaf 1)Error:$(tput sgr 0) The input is not a valid number"
 			exit 1
 		fi
-		#Multiply number of connections by 8. You can manualy change this. Read more: https://github.com/alexbers/mtprotoproxy/blob/master/mtprotoproxy.py#L202
 		OPTION=$((OPTION * 8))
 		limits+=(["$USERNAME"]="$OPTION")
 		;;
